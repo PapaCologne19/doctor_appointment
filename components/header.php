@@ -1,6 +1,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Favicon -->
+<link rel="shortcut icon" href="assets/img/pcn.png" type="image/x-icon">
 <!-- Bootstrap 5 -->
 <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" href="../assets/bootstrap/dist/css/bootstrap.min.css">

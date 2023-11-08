@@ -1,6 +1,9 @@
 <?php
 session_start();
-include '../database/connect.php';
+include '../model/connect.php';
+include '../model/authenticate.php';
+
+if(isset($_SESSION['username'], $_SESSION['password'])){
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +11,7 @@ include '../database/connect.php';
 
 <head>
     <?php include '../components/header.php' ?>
-    <title>Document</title>
+    <title>Calendar</title>
 </head>
 
 <body>
@@ -92,15 +95,10 @@ include '../database/connect.php';
 
     <!-- (3) CALENDAR FORM -->
     <dialog id="calForm">
-
         <form method="dialog">
             <div id="evtCX">&times;</div>
             <h2 class="evt100">CALENDAR EVENT</h2>
-            <input type="hidden" name="evtCategory" id="evtCategory" disabled>
-            <input type="hidden" name="evtUserID" id="evtUserID">
-            <input type="hidden" name="evtEmail" id="evtEmail" disabled>
-            <input type="hidden" name="evtEndpoint" id="evtEndpoint" disabled>
-            <input type="hidden" name="evtStatus" id="evtStatus" disabled>
+                <input type="hidden" name="evtUserID" id="evtUserID">
 
             <div class="evt100">
                 <input type="hidden" id="evtID">
@@ -122,12 +120,17 @@ include '../database/connect.php';
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <div class="container">
+                        <form action="action.php" method="POST" class="form-group row">
+                            <label for="" class="form-label">Appointment Date</label>
+                            <input type="date" name="appointment_date" id="appointment_date" class="form-control" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" name="appoint_btn" class="btn btn-primary">Save changes</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -138,3 +141,11 @@ include '../database/connect.php';
 </body>
 
 </html>
+<?php
+}
+else{
+    header("Location: ../index.php");
+    session_unset();
+    exit(0);
+}
+?>
