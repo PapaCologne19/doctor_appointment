@@ -98,7 +98,10 @@ if(isset($_SESSION['username'], $_SESSION['password'])){
         <form method="dialog">
             <div id="evtCX">&times;</div>
             <h2 class="evt100">CALENDAR EVENT</h2>
+                <input type="hidden" name="evtID" id="evtID">
                 <input type="hidden" name="evtUserID" id="evtUserID">
+                <input type="text" name="evtStart" id="evtStart">
+                <input type="text" name="evtEnd" id="evtEnd">
 
             <div class="evt100">
                 <input type="hidden" id="evtID">

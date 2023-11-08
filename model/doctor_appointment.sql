@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2023 at 04:36 PM
+-- Generation Time: Nov 08, 2023 at 04:58 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -31,7 +31,7 @@ CREATE TABLE `appointment` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `appointment_date_start` date NOT NULL,
-  `appointment_date_end` datetime NOT NULL DEFAULT current_timestamp(),
+  `appointment_date_end` datetime NOT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -40,8 +40,8 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`id`, `user_id`, `appointment_date_start`, `appointment_date_end`, `date_created`) VALUES
-(1, 1, '2023-11-16', '0000-00-00 00:00:00', '2023-11-08 21:21:48'),
-(2, 1, '2023-11-17', '2023-11-08 23:06:40', '2023-11-08 23:06:40');
+(1, 1, '2023-11-16', '2023-11-16 00:00:00', '2023-11-08 23:56:43'),
+(2, 1, '2023-11-17', '2023-11-17 00:00:00', '2023-11-08 23:56:51');
 
 -- --------------------------------------------------------
 

@@ -44,11 +44,12 @@ class User
     }
 
     // FOR SET APPOINTMENT DATE
-    public function appoint_date($user_id, $date){
-        $query = "INSERT INTO appointment(user_id, appointment_date_start) VALUES (? ,?)";
+    public function appoint_date($user_id, $start_date, $end_date){
+        $query = "INSERT INTO appointment(user_id, appointment_date_start, appointment_date_end) VALUES (? ,?, ?)";
         $stmt = $this->connect->prepare($query);
         $stmt->bindParam(1, $user_id);
-        $stmt->bindParam(2, $date);
+        $stmt->bindParam(2, $start_date);
+        $stmt->bindParam(3, $end_date);
         $stmt->execute();
         return $stmt;
     }
