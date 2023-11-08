@@ -30,7 +30,7 @@ var cal = {
   
       // (B2) FETCH data from input  here ==============================================
       // Fetch data from the first PHP file
-      fetch("3-cal-ajax.php", {
+      fetch("ajax_request.php", {
           method: "POST",
           body: form
         })
@@ -49,39 +49,15 @@ var cal = {
       cal.hFormWrap = document.getElementById("calForm");
       cal.hForm = cal.hFormWrap.querySelector("form");
       cal.hfID = document.getElementById("evtID");
-      cal.hfEmail = document.getElementById("evtEmail");
-      cal.hfEndpoint = document.getElementById("evtEndpoint");
-      cal.hfCategory = document.getElementById("evtCategory");
-      cal.hfRequestor = document.getElementById('evtRequestor');
       cal.hfStart = document.getElementById("evtStart");
-  
       cal.hfEnd = document.getElementById("evtEnd");
-      cal.hfEndAll = document.getElementById("evtEndAll");
-  
-      cal.hfEnd1 = document.getElementById("evtEnd1");
-  
-  
+    
       cal.hfTxt = document.getElementById("evtTxt");
       cal.hfColor = document.getElementById("evtColor");
       cal.hfBG = document.getElementById("evtBG");
       cal.hfStatus = document.getElementById("evtStatus");
       cal.hfDel = document.getElementById("evtDel");
       cal.hfCancel = document.getElementById("evtCancel");
-      cal.hfOther_equipment = document.getElementById('evtOthers');
-  
-      cal.hfQuantity = document.getElementById("evtQuantity");
-  
-      cal.hfProjector = document.getElementById("evtProjector");
-      cal.hfWhiteboard = document.getElementById("evtWhiteboard");
-      cal.hfExtCord = document.getElementById("evtExtCord");
-      cal.hfSound = document.getElementById("evtSound");
-      cal.hfBasicLights = document.getElementById("evtBasicLights");
-      cal.hfCleanup = document.getElementById("evtCleanup");
-  
-      // time
-      cal.hfAllday = document.getElementById("evtTime");
-      cal.hfRoomOrientation = document.getElementById("evtRoomOrientation");
-      cal.hfRoomOrientationOther = document.getElementById("evtRoomOrientationOther");
   
       // (C2) ATTACH CONTROLS
       cal.hMth.onchange = cal.load;
@@ -288,87 +264,14 @@ var cal = {
             rowA = document.getElementById("calRow" + r);
             rowB = document.createElement("div");
             rowB.className = "calRowEvt";
+
   
-            // Assuming you have fetched the data from PHP and stored it in cal.events[id]
-            const selectedColumns = ["x67", "x78", "x89", "x910", "x1011", "x1112", "x121", "x12", "x23", "x34", "x45", "x56"];
-            const timeSlotMapping = {
-              "x67": "6am - 7am",
-              "x78": "7am - 8am",
-              "x89": "8am - 9am",
-              "x910": "9am - 10am",
-              "x1011": "10am - 11am",
-              "x1112": "11am - 12pm",
-              "x121": "12pm - 1pm",
-              "x12": "1pm - 2pm",
-              "x23": "2pm - 3pm",
-              "x34": "3pm - 4pm",
-              "x45": "4pm - 5pm",
-              "x56": "5pm - 6pm",
-            };
-  
-            // Initialize an array to store selected time slots
-            const selectedTimeSlots = [];
-  
-            // Iterate through the selected columns and check their values
-            for (const column of selectedColumns) {
-              const columnValue = cal.events[id][column];
-              const mappedTimeSlot = timeSlotMapping[column];
-  
-              // Check if the column value is "1" or 1 (use == for type coercion)
-              if (columnValue == "1" && mappedTimeSlot) {
-                // Check if the time slot is not already in the array
-                if (!selectedTimeSlots.includes(mappedTimeSlot)) {
-                  selectedTimeSlots.push(mappedTimeSlot);
-                }
-              }
-            }
-  
-            // Merge adjacent time slots into a single time range
-            const mergedTimeRanges = [];
-            let currentRange = "";
-  
-            for (const timeSlot of selectedTimeSlots) {
-              if (currentRange === "") {
-                currentRange = timeSlot;
-              } else {
-                const previousEndTime = currentRange.split(" - ")[1];
-                const currentTimeSlotStart = timeSlot.split(" - ")[0];
-  
-                if (previousEndTime === currentTimeSlotStart) {
-                  currentRange = currentRange.split(" - ")[0] + " - " + timeSlot.split(" - ")[1];
-                } else {
-                  mergedTimeRanges.push(currentRange);
-                  currentRange = timeSlot;
-                }
-              }
-            }
-  
-            // Add the last time range to the mergedTimeRanges array
-            if (currentRange !== "") {
-              mergedTimeRanges.push(currentRange);
-            }
-  
-            // Join the merged time ranges with " - " separator
-            const formattedTimeSlots = mergedTimeRanges.join(" - ");
+            rowB.innerHTML = cal.events[id]["t"];
+
   
   
   
-            if (cal.events[id]["category"] === "ADMIN") {
-              rowB.innerHTML = cal.events[id]["t"] + " | " + formattedTimeSlots;
-            } else if (cal.events[id]["category"] === "USER" && cal.events[id]["app_status"] === "canceled" && cal.events[id]["userID"] === cal.events[id]["userIDSESSION"] && cal.events[id]["username"] === cal.events[id]["usernameSESSION"]) {
-              rowB.style.display = "none"; 
-            } else if (cal.events[id]["category"] === "USER" && cal.events[id]["userID"] === cal.events[id]["userIDSESSION"]) { // && cal.events[id]["userID"] === cal.events[id]["userIDSESSION"] && cal.events[id]["username"] === cal.events[id]["usernameSESSION"]
-              rowB.innerHTML = cal.events[id]["t"] + " | " + formattedTimeSlots;
-            } else if (cal.events[id]["category"] === "VIEWER") {
-              rowB.innerHTML = cal.events[id]["t"] + " | " + formattedTimeSlots;
-            } else {
-              rowB.style.display = "none";
-            }
-  
-  
-  
-  
-            rowB.style.color = cal.events[id]["c"];
+            rowB.style.color = "Yellow";
             rowB.style.backgroundColor = cal.events[id]["b"];
             rowB.classList.add("w" + w);
             if (o != 0) {

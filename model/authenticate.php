@@ -1,32 +1,30 @@
 <?php
-include 'connect.php';
 class User
 {
     private $connect;
+    public $username;
+    public $password;
 
     public function __construct($connect)
     {
         $this->connect = $connect;
     }
 
-    // For Login
-    public function login($username, $password)
+    // FOR LOGIN
+    public function login()
     {
-        $query = "SELECT * FROM user WHERE username = ? AND password = ?";
+        $query = "SELECT * FROM user WHERE username = ?";
         $stmt = $this->connect->prepare($query);
-        $stmt->bindParam(1, $username, PDO::PARAM_STR);
-        $stmt->bindParam(2, $password, PDO::PARAM_STR);
+        $stmt->bindParam(1, $this->username);
 
-        if ($stmt->execute()) {
-            return $stmt->fetch(); // You can use fetch() to retrieve the result as an associative array
-        } else {
-            return false;
-        }
+        $stmt->execute();
+            return $stmt; 
     }
 
-    // For Signup
+    // FOR SIGNUP
     public function signup($id, $firstname, $middlename, $lastname, $email, $contact_number, $division, $username, $password)
     {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $query = "INSERT INTO user(pcn_id_number, firstname, middlename, lastname, email, contact_number, division, username, password) 
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -39,8 +37,18 @@ class User
         $stmt->bindParam(6, $contact_number);
         $stmt->bindParam(7, $division);
         $stmt->bindParam(8, $username);
-        $stmt->bindParam(9, $password);
+        $stmt->bindParam(9, $hashed_password);
 
+        $stmt->execute();
+        return $stmt;
+    }
+
+    // FOR SET APPOINTMENT DATE
+    public function appoint_date($user_id, $date){
+        $query = "INSERT INTO appointment(user_id, appointment_date_start) VALUES (? ,?)";
+        $stmt = $this->connect->prepare($query);
+        $stmt->bindParam(1, $user_id);
+        $stmt->bindParam(2, $date);
         $stmt->execute();
         return $stmt;
     }

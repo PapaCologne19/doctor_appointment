@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'model/connect.php';
-include 'model/login.php';
+include 'model/authenticate.php';
 
 ?>
 <!DOCTYPE html>
@@ -10,6 +10,9 @@ include 'model/login.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/pcn.png" type="image/x-icon">
 
     <!-- Bootstrap 5 -->
     <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.css">
@@ -162,7 +165,7 @@ include 'model/login.php';
     }
     ?>
 
-    <nav>
+    <nav class="mt-5 mx-5">
         <img src="assets/img/pcn.png" alt="PCN LOGO" class="img-responsive" width="10%">
     </nav>
 
@@ -198,7 +201,7 @@ include 'model/login.php';
                                         <div class="col-md-12 col-sm-6 col-sm-offset-3 mt-5">
                                             <button type="submit" name="login-submit" id="login-submit" tabindex="3" class="btn btn-default btn-login" value="LOGIN"> Login</button>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 pt-4 pb-4 mb-5">
+                                        <div class="col-sm-12 col-md-12 pt-4 pb-4 mb-5">
                                             <a href="javascript:void(0)" class="registerAccount link" style="color: #BABABA; ">Register Account here</a>
                                         </div>
                                     </form>
