@@ -266,7 +266,7 @@ var cal = {
             rowB.className = "calRowEvt";
 
   
-            rowB.innerHTML = cal.events[id]["t"];
+            rowB.innerHTML = cal.events[id]["s"];
 
   
   

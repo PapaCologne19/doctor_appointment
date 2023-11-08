@@ -66,7 +66,7 @@ if(isset($_POST['appoint_btn'])){
     $appoint_date = $_POST['appointment_date'];
 
     if(!empty($appoint_date)){
-        $add_appoint = $User->appoint_date($user_id, $appoint_date);
+        $add_appoint = $User->appoint_date($user_id, $appoint_date, $appoint_date);
 
         if($add_appoint){
             $_SESSION['successMessage'] = "Successfully Appoint";

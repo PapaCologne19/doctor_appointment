@@ -60,7 +60,7 @@ class Calendar
     $events = [];
     while ($r = $this->stmt->fetch()) {
       $events[$r["id"]] = [
-        "s" => $r["appointment_date_start"], "e" => $r["appointment_date_end"]
+        "s" => $r["appointment_date_start"], "e" => $r["appointment_date_end"],
       ];
     }
 
