@@ -24,6 +24,9 @@ if (isset($_POST['login-submit'])) {
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['password'] = $row['password'];
+                $_SESSION['firstname'] = $row['firstname'];
+                $_SESSION['lastname'] = $row['lastname'];
+                $_SESSION['user_type'] = $row['user_type'];
                 
                 header("Location: index.php");
                 $_SESSION['successMessage'] = "Welcome, " .$row['firstname'];
@@ -64,9 +67,11 @@ if (isset($_POST['register'])) {
 if(isset($_POST['appoint_btn'])){
     $user_id = $_SESSION['id'];
     $appoint_date = $_POST['appointment_date'];
+    $name = $_SESSION['firstname'] . " " . $_SESSION['lastname'];
+    $type = $_SESSION['user_type'];
 
     if(!empty($appoint_date)){
-        $add_appoint = $User->appoint_date($user_id, $appoint_date, $appoint_date);
+        $add_appoint = $User->appoint_date($user_id, $appoint_date, $appoint_date, $name, $type);
 
         if($add_appoint){
             $_SESSION['successMessage'] = "Successfully Appoint";

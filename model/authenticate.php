@@ -18,7 +18,7 @@ class User
         $stmt->bindParam(1, $this->username);
 
         $stmt->execute();
-            return $stmt; 
+        return $stmt;
     }
 
     // FOR SIGNUP
@@ -44,13 +44,26 @@ class User
     }
 
     // FOR SET APPOINTMENT DATE
-    public function appoint_date($user_id, $start_date, $end_date){
-        $query = "INSERT INTO appointment(user_id, appointment_date_start, appointment_date_end) VALUES (? ,?, ?)";
+    public function appoint_date($user_id, $start_date, $end_date, $name, $type)
+    {
+        $query = "INSERT INTO appointment(user_id, appointment_date_start, appointment_date_end, name, type) VALUES (? ,?, ?, ?, ?)";
         $stmt = $this->connect->prepare($query);
         $stmt->bindParam(1, $user_id);
         $stmt->bindParam(2, $start_date);
         $stmt->bindParam(3, $end_date);
+        $stmt->bindParam(4, $name);
+        $stmt->bindParam(5, $type);
         $stmt->execute();
+        return $stmt;
+    }
+
+    // SELECT 
+    public function select_data()
+    {
+        $query = "SELECT * FROM appointment";
+        $stmt = $this->connect->prepare($query);
+        $stmt->execute();
+
         return $stmt;
     }
 }

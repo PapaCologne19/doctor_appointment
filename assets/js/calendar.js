@@ -16,7 +16,9 @@ var cal = {
     hfEnd: null,
     hfTxt: null,
     hfColor: null,
+    hfStatus: null,
     hfBG: null,
+    hfSave: null,
     hfDel: null,
     hfCancel: null,
   
@@ -56,9 +58,11 @@ var cal = {
       cal.hfColor = document.getElementById("evtColor");
       cal.hfBG = document.getElementById("evtBG");
       cal.hfStatus = document.getElementById("evtStatus");
+      cal.hfSave = document.getElementById("evtSave");
       cal.hfDel = document.getElementById("evtDel");
       cal.hfCancel = document.getElementById("evtCancel");
-  
+      cal.hfType = document.getElementById("evtType");
+
       // (C2) ATTACH CONTROLS
       cal.hMth.onchange = cal.load;
       cal.hYear.onchange = cal.load;
@@ -266,13 +270,27 @@ var cal = {
             rowB.className = "calRowEvt";
 
   
-            rowB.innerHTML = cal.events[id]["s"];
+            
+            if (cal.events[id]["type"] === "ADMIN") {
+              rowB.innerHTML = cal.events[id]["name"] + "  |  " +  cal.events[id]["s"];
+            } else if (cal.events[id]["type"] === "USER" && cal.events[id]["user_id"] === cal.events[id]["user_id_session"]) { // && cal.events[id]["userID"] === cal.events[id]["userIDSESSION"] && cal.events[id]["username"] === cal.events[id]["usernameSESSION"]
+              rowB.innerHTML = cal.events[id]["name"] + "  -  " +  cal.events[id]["s"];
+            } else {
+              rowB.style.display = "none";
+            }
+  
+  
+            if(cal.events[id]["status"] === "PENDING"){
+              rowB.style.backgroundColor = "#F9F54B";
+              rowB.style.color = "#202326";
+            } else if(cal.events[id]["status"] === "APPROVED"){
+              rowB.style.backgroundColor = "#137c23";
+              rowB.style.color = "#FFFFFF";
+            } else if(cal.events[id]["status"] === "REJECTED"){
+              rowB.style.backgroundColor = "#952323";
+              rowB.style.color = "#ffe9ec";
+            }
 
-  
-  
-  
-            rowB.style.color = "Yellow";
-            rowB.style.backgroundColor = cal.events[id]["b"];
             rowB.classList.add("w" + w);
             if (o != 0) {
               rowB.classList.add("o" + o);
@@ -292,191 +310,39 @@ var cal = {
   
         cal.hfStart.value = cal.events[id]["s"]; //Start Time
         cal.hfEnd.value = cal.events[id]["e"]; //End Time
+        cal.hfStatus.value = cal.events[id]["status"]; // STATUS
   
-        if (cal.hfCategory.value = cal.events[id]["category"] === "ADMIN") { // For Admin Viewing of requestor's full name
-          cal.hfRequestor.value = cal.events[id]["fullname"]; //Requestor's Name
+        if (cal.hfType.value = cal.events[id]["type"] === "ADMIN") { // For Admin Viewing of requestor's full name
+          cal.hfRequestor.value = cal.events[id]["fullName"]; //Requestor's Name
         }
-        if (cal.hfCategory.value = cal.events[id]["category"] === "VIEWER") { // For Viewer Viewing of requestor's full name
-          cal.hfRequestor.value = cal.events[id]["fullname"]; //Requestor's Name
+        if (cal.hfType.value = cal.events[id]["type"] === "VIEWER") { // For Viewer Viewing of requestor's full name
+          cal.hfRequestor.value = cal.events[id]["fullName"]; //Requestor's Name
         }
         if (cal.events[id]["userID"] === cal.events[id]["userIDSESSION"] && cal.events[id]["username"] === cal.events[id]["username"] && cal.events[id]["category"] === "USER") {
           cal.hfRequestor.value = cal.events[id]["firstname"] + " " + cal.events[id]["lastname"]; //Requestor's Name
         }
        
-  
-        // Time
-        const timeSlots = [{
-            key: "x67",
-            label: "6am to 7am"
-          },
-          {
-            key: "x78",
-            label: "7am to 8am"
-          },
-          {
-            key: "x89",
-            label: "8am to 9am"
-          },
-          {
-            key: "x910",
-            label: "9am to 10am"
-          },
-          {
-            key: "x1011",
-            label: "10am to 11am"
-          },
-          {
-            key: "x1112",
-            label: "11am to 12pm"
-          },
-          {
-            key: "x121",
-            label: "12pm to 1pm"
-          },
-          {
-            key: "x12",
-            label: "1pm to 2pm"
-          },
-          {
-            key: "x23",
-            label: "2pm to 3pm"
-          },
-          {
-            key: "x34",
-            label: "3pm to 4pm"
-          },
-          {
-            key: "x45",
-            label: "4pm to 5pm"
-          },
-          {
-            key: "x56",
-            label: "5pm to 6pm"
-          }
-        ];
-  
-        let allSlotsAvailable = true;
-        let timeSlotsText = [];
-  
-        timeSlots.forEach((timeSlot) => {
-          if (cal.events[id][timeSlot.key] !== "1") {
-            allSlotsAvailable = false;
-          }
-        });
-  
-        if (allSlotsAvailable) {
-          cal.hfEndAll.value = "All Day";
-        } else {
-          cal.hfEndAll.style.display = "none";
+        if(cal.events[id]["user_id"] === cal.events[id]["user_id_session"] 
+        && cal.events[id]["name"] === cal.events[id]["name"] 
+        && cal.events[id]["type"] === "USER"
+        && cal.events[id]["app_status"] === "PENDING"){
+          cal.hfSave.style.display = "inline-block";
+          cal.hfDel.style.display = "inline-block";
+
         }
-  
-        timeSlots.forEach((timeSlot) => {
-          if (cal.events[id][timeSlot.key] === "1") {
-            timeSlotsText.push(timeSlot.label);
-          }
-        });
-  
-        if (timeSlotsText.length > 0 && !allSlotsAvailable) {
-          cal.hfEnd1.value = timeSlotsText.join(",  ");
-        } else {
-          cal.hfEnd1.style.display = "none";
-  
+        else if(cal.events[id]["user_id"] === cal.events[id]["user_id_session"] 
+        && cal.events[id]["name"] === cal.events[id]["name"] 
+        && cal.events[id]["type"] === "USER"
+        && cal.events[id]["status"] === "APPROVED" 
+        || cal.events[id]["status"] === "REJECTED"
+        || cal.events[id]["status"] === ""){
+          cal.hfSave.style.display = "none";
+          cal.hfDel.style.display = "none";
         }
+
+
+
   
-  
-  
-        cal.hfTxt.value = cal.events[id]["t"]; // Room Name
-        cal.hfQuantity.value = cal.events[id]["q"]; //Quantity
-  
-        // EQUIPMENTS
-        // Projector
-        if (cal.events[id]["projector"] === "1") {
-          cal.hfProjector.value = "Projector";
-        } else {
-          cal.hfProjector.style.display = "none";
-        }
-  
-        // Whiteboard
-        if (cal.events[id]["whiteboard"] === "1") {
-          cal.hfWhiteboard.value = "Whiteboard";
-        } else {
-          cal.hfWhiteboard.style.display = "none";
-        }
-  
-        // Extension Cord
-        if (cal.events[id]["ext_cord"] === "1") {
-          cal.hfExtCord.value = "Extension Cord";
-        } else {
-          cal.hfExtCord.style.display = "none";
-        }
-  
-        // Sound
-        if (cal.events[id]["sound"] === "sound" && cal.events[id]["sound_simple"] === "1") {
-          cal.hfSound.value = "Sound (Simple)";
-        } else if (cal.events[id]["sound"] === "sound" && cal.events[id]["sound_advance"] === "1") {
-          cal.hfSound.value = "Sound (Advance)";
-        } else {
-          cal.hfSound.style.display = "none";
-        }
-  
-        // Basic Lights
-        if (cal.events[id]["basic_lights"] === "1") {
-          cal.hfBasicLights.value = "Basic Lights";
-        } else {
-          cal.hfBasicLights.style.display = "none";
-        }
-  
-        // Cleanup
-        if (cal.events[id]["cleanup"] === "cleanup" && cal.events[id]["cleanup_before"] === "1") {
-          cal.hfCleanup.value = "Cleanup (Before)";
-        } else if (cal.events[id]["cleanup"] === "cleanup" && cal.events[id]["cleanup_after"] === "1") {
-          cal.hfCleanup.value = "Cleanup (After)";
-        } else {
-          cal.hfCleanup.style.display = "none";
-        }
-  
-        if (cal.events[id]['other_equipment'] == null || cal.events[id]['other_equipment'] === undefined || cal.events[id]['other_equipment'] === "") {
-          cal.hfOther_equipment.style.display = "none";
-        } else {
-          cal.hfOther_equipment.value = cal.events[id]['other_equipment'];
-          cal.hfOther_equipment.style.visibility = "visible";
-        }
-  
-  
-        cal.hfRoomOrientation.value = cal.events[id]["room_orientation"]; //Room Orientation
-  
-  
-        if (cal.events[id]["room_orientation"] === null || cal.events[id]["room_orientation"] === undefined || cal.events[id]["room_orientation"] === "on" || cal.events[id]['room_orientation'] === "") {
-          cal.hfRoomOrientation.style.display = "none";
-          cal.hfRoomOrientationOther.value = cal.events[id]["other_room_orientation"];
-        } else {
-          cal.hfRoomOrientation.value = cal.events[id]["room_orientation"];
-          cal.hfRoomOrientationOther.style.display = "none";
-        }
-  
-        if(cal.events[id]["userID"] === cal.events[id]["userIDSESSION"] 
-        && cal.events[id]["username"] === cal.events[id]["username"] 
-        && cal.events[id]["category"] === "USER"
-        && cal.events[id]["app_status"] === "pending"){
-          cal.hfCancel.style.display = "inline-block";
-        }
-        else if(cal.events[id]["userID"] === cal.events[id]["userIDSESSION"] 
-        && cal.events[id]["username"] === cal.events[id]["username"] 
-        && cal.events[id]["category"] === "USER"
-        && cal.events[id]["app_status"] === "approved" 
-        || cal.events[id]["app_status"] === "rejected"
-        || cal.events[id]["app_status"] === "canceled"
-        || cal.events[id]["app_status"] === ""){
-          cal.hfCancel.style.display = "none";
-        }
-  
-        cal.hfCategory.value = cal.events[id]["userCategory"];
-        cal.hfEmail.value = cal.events[id]["emails"];
-        cal.hfEndpoint.value = cal.events[id]["endpoint"];
-        cal.hfColor.value = cal.events[id]["c"];
-        cal.hfBG.value = cal.events[id]["b"];
-        cal.hfStatus.value = cal.events[id]["app_status"];
-        cal.hfDel.style.display = "inline-block";
   
       } else {
         cal.hForm.reset();
@@ -493,15 +359,7 @@ var cal = {
       // (H1) COLLECT DATA
       var data = {
         req: "save",
-        start: cal.hfStart.value,
-        end: cal.hfEnd.value,
-        txt: cal.hfTxt.value,
-        color: cal.hfColor.value,
-        bg: cal.hfBG.value,
-        status: cal.hfStatus.value,
-        email: cal.hfEmail.value,
-        endpoint: cal.hfEndpoint.value,
-        fullname: cal.hfRequestor.value,
+        status: cal.hfStatus.value
       };
       if (cal.hfID.value != "") {
         data.id = cal.hfID.value;
@@ -510,18 +368,20 @@ var cal = {
       // (H2) Create a confirmation SweetAlert dialog
       Swal.fire({
         title: 'Confirm Save',
-        text: 'Are you sure you want to approve this event?',
+        text: 'Are you sure you want to approve this Appointment?',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, approve it!',
+        confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel'
       }).then((result) => {
         if (result.isConfirmed) {
           // User confirmed the save action
           // (H3) AJAX SAVE
           cal.ajax(data, res => {
+            console.log("Response", data);
+            
             if (res == "OK") {
               Swal.fire(
                 'Saved!',
@@ -541,7 +401,6 @@ var cal = {
           });
         }
       });
-  
       return false;
     },
   
@@ -549,11 +408,7 @@ var cal = {
     del: () => {
       var data = {
         req: "del",
-        bg: cal.hfBG.value,
-        status: cal.hfStatus.value,
-        email: cal.hfEmail.value,
-        endpoint: cal.hfEndpoint.value,
-        fullname: cal.hfRequestor.value
+        status: cal.hfStatus.value
       };
       if (cal.hfID.value != "") {
         data.id = cal.hfID.value;
@@ -573,7 +428,8 @@ var cal = {
         if (result.isConfirmed) {
           // User clicked the "Yes, delete it!" button
           cal.ajax(data, res => {
-            if (res == "OK") {
+            console.log("Response", data);
+            if (res === "OK") {
               Swal.fire(
                 'Saved!',
                 'Successfully Rejected.',
@@ -594,64 +450,7 @@ var cal = {
       });
   
       return false;
-    },
-  
-  
-    cncl: () => {
-      var data = {
-        req: "cncl",
-        status: cal.hfStatus.value,
-        bg: cal.hfBG.value,
-        email: cal.hfEmail.value,
-        fullname: cal.hfRequestor.value
-      };
-  
-      if (cal.hfID.value != "") {
-        data.id = cal.hfID.value;
-      }
-  
-      Swal.fire({
-        title: 'Are you sure you want to cancel this?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, cancel it!',
-        cancelButtonText: 'Cancel' // Apply custom CSS class
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // User clicked the "Yes, cancel it!" button
-          cal.ajax(data, res => {
-            if (res == "OK") {
-              Swal.fire(
-                'Saved!',
-                'Successfully Canceled.',
-                'success'
-              ).then(() => {
-                cal.hFormWrap.close();
-                cal.load();
-              });
-            } else {
-              Swal.fire(
-                'Error',
-                res,
-                'error',
-                console.log("cal.hfStatus.value:", cal.hfStatus.value),
-                console.log("cal.hfEmail.value:", cal.hfEmail.value),
-                console.log("cal.hfRequestor.value:", cal.hfRequestor.value),
-                console.log("Response from server:", res)
-              );
-            }
-          });
-        }
-      });
-  
-      return false;
-  
     }
-  
-  
-  
   
   };
   window.onload = cal.init;

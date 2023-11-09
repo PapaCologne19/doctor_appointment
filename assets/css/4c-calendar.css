@@ -123,17 +123,13 @@ body {
   margin-right: 5px;
   font-size: 12px;
   font-weight: 700;
-  color: white !important;
-
-  letter-spacing: 2px;
-  text-shadow: 1px 1px 1px black;
-  /* text-shadow: 1px 1px 1px rgba(0, 0, 0, 100), 1px 1px 1px rgba(0, 0, 0, 100), 1px 1px 1px rgba(0, 0, 0, 100); */
+  text-transform: uppercase;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   cursor: pointer;
   border-radius: 10px;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   box-shadow: rgba(50, 50, 93, 1) 0px 100px 100px -20px, rgba(0, 0, 0, 1) 0px 30px 100px -30px, rgba(10, 37, 64, .50) 0px -2px 6px 0px inset;
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
 }
@@ -228,6 +224,17 @@ body {
 }
 
 /* (D) EVENT FORM */
+@keyframes fade {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 #calForm {
   position: absolute;
   top: 0;
@@ -240,6 +247,16 @@ body {
   margin: 0;
   border: 0;
   background: rgba(0, 0, 0, 0.5);
+}
+
+#calForm .form-control{
+  pointer-events: none;
+}
+
+#calForm .form-control:focus{
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 #calForm:is([open]),
@@ -256,17 +273,30 @@ body {
   padding: 15px;
   border-radius: 10px;
   background: #fff;
+  animation: fade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: 'Poppins', sans-serif !important;
 }
 
 #evtCX {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 10px;
-  color: #b12020;
-  font-size: 28px;
-  font-weight: 700;
+  color: #000000;
+  font-size: 20px;
   cursor: pointer;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  opacity: 1;
+  padding: 0.635rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(161, 172, 184, 0.4);
+  transition: all 0.23s ease 0.1s;
+  transform: translate(23px, -25px);
+}
+
+#evtCX:hover, #evtCX:focus, #evtCX:active {
+  opacity: 1;
+  outline: none;
+  transform: translate(20px, -20px);
 }
 
 #calForm h2 {
@@ -324,7 +354,7 @@ body {
 
 #calButton{
   /* border: 2px solid #1eebda; */
-  background: #39A7FF;
+  background: #1eebda;
   color: white;
   font-family: 'Inter', sans-serif !important;
   padding: 1rem;
@@ -346,7 +376,7 @@ body {
   color: white;
   font-family: 'Inter', sans-serif !important;
   padding: 1rem;
-  /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 #evtBG{
@@ -364,23 +394,6 @@ body {
   }
 }
 
-@media screen and (max-width: 1050px){
-  #image_logo{
-    display: none;
-  }
-}
-
-@media screen and (max-width: 991px){
-  #imgko1{
-    width: 50% !important;
-  }
-}
-
-/* @media screen and (min-width: 641px){
-  #calButton{
-    width: 15%;
-  }
-} */
 
 @media screen and (max-width: 640px) {
   #calHead {
