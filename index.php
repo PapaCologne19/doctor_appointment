@@ -202,7 +202,7 @@ include 'model/authenticate.php';
                                             <button type="submit" name="login-submit" id="login-submit" tabindex="3" class="btn btn-default btn-login" value="LOGIN"> Login</button>
                                         </div>
                                         <div class="col-sm-12 col-md-12 pt-4 pb-4 mb-5">
-                                            <a href="javascript:void(0)" class="registerAccount link" style="color: #BABABA; ">Register Account here</a>
+                                            <a href="javascript:void(0)" class="registerAccount link" style="color: #BABABA; ">Temporary Registration Link</a>
                                         </div>
                                     </form>
                                 </div>

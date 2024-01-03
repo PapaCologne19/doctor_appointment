@@ -83,8 +83,11 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
             </div>
 
             <input class="btn" id="calAdd" type="hidden" value="+">&nbsp;
-            <button type="button" class="gbutton btn btn-default " data-bs-toggle="modal" id="calButton" data-bs-target="#addAppointment" style="float:right;">Make an Appointment</button> &nbsp; &nbsp; &nbsp;
+            <button type="button" class="gbutton btn btn-default" id="calButton" data-bs-toggle="modal" data-bs-target="#addAppointment" style="float:right;">Make an Appointment</button> &nbsp; &nbsp; &nbsp;
             <button type="button" class="btn btn-default" onclick="location.href = 'logout.php';" id="calButtonLogout">Logout</button>
+
+
+         
         </div>
 
         <!-- (2) CALENDAR BODY -->
@@ -124,33 +127,35 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
         </dialog>
 
 
-        <!-- MODAL FOR ADDING APPOINTMENT -->
-        <div class="modal fade zoom-out" id="addAppointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <form action="action.php" method="POST" class="form-group row">
-                                <label for="" class="form-label">Appointment Date</label>
-                                <input type="date" name="appointment_date" id="appointment_date" class="form-control" required>
+   <!-- MODAL FOR ADDING APPOINTMENT -->
+   <div class="modal fade" id="addAppointment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <form action="action.php" method="POST" class="form-group row">
+                                    <label for="" class="form-label">Appointment Date</label>
+                                    <input type="date" name="appointment_date" id="appointment_date" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="appoint_btn" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" name="appoint_btn" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </form>
                 </div>
             </div>
-        </div>
 
 
 
         <!-- CALENDAR ENDS HERE -->
+
+        <?php include '../components/footer.php'?>
     </body>
 
     </html>
