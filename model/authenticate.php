@@ -170,7 +170,7 @@ class User
 
     public function select_bd1()
     {
-        $query = "SELECT * FROM emp ";
+        $query = "SELECT * FROM emp WHERE is_deleted = '0'";
         $stmt = $this->connect->prepare($query);
         $stmt->execute();
 
@@ -615,4 +615,12 @@ class User
         return $stmt;
     }
 
+    public function print_vitals($patient_name){
+        $sql = "SELECT * FROM vitals WHERE patient_name = :patient_name";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bindParam(':patient_name', $patient_name);
+        $stmt->execute();
+        
+        return $stmt;
+    }
 }

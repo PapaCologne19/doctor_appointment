@@ -45,28 +45,33 @@ include 'model/authenticate.php';
         }
 
         * {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
-
         #username,
         #password {
-            border: 0px solid #404040;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border-bottom: 1px solid inherit;
+            border-radius: 0;
             padding: 20px;
-            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
         }
 
         #username:focus,
         #password:focus {
             outline: none !important;
             box-shadow: none !important;
-            border: 0px solid black;
-            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px !important;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border-bottom: 1px solid inherit;
+            border-radius: 0;
         }
 
         .btn-login {
-            padding: 15px;
-            width: 250px;
-            border-radius: 15px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
             background-color: #57d8cd;
             color: white;
         }
@@ -81,13 +86,16 @@ include 'model/authenticate.php';
         }
 
         #title {
-            font-weight: 900 !important;
+            font-weight: 500 !important;
         }
-
         .container,
         .form-label,
         .modal-footer {
             font-family: 'Inter', sans-serif !important;
+        }
+
+        .showPasswordInput input, .showPasswordInput label{
+            color: #BABABA;
         }
 
         .modal-footer .btn {
@@ -128,7 +136,6 @@ include 'model/authenticate.php';
         }
     </style>
 </head>
-<!-- style="box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;" -->
 
 <body>
     <?php
@@ -184,22 +191,22 @@ include 'model/authenticate.php';
                             <div class="row">
                                 <div class="col-lg-12 forms">
                                     <form id="login-form" class="col-lg-offset-1 col-lg-10 forms" action="views/action.php" method="post" style="display: block;">
-                                        <div class="mt-4">
-                                            <!-- <label class="form-label" for="username" id="usernameLabel">Username</label> -->
-                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" autocomplete="on" required>
+                                        <div class="mt-4 d-flex align-items-center">
+                                            <i class="bi bi-person me-2"></i>
+                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" autocomplete="off" required>
                                         </div>
-                                        <div class="mt-4">
-                                            <!-- <label class="form-label" for="password" id="passwordLabel">Password</label> -->
+                                        <div class="mt-4 d-flex align-items-center">
+                                            <i class="bi bi-key me-2"></i>
                                             <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" autocomplete="current-password" required>
                                         </div>
-                                        <div class="form-check mt-3">
+                                        <div class="form-check showPasswordInput mt-3">
                                             <input class="form-check-input" type="checkbox" value="" onclick="showPasswords()" id="showPassword" style="border: 1px solid gray !important;">
                                             <label class="form-check-label" for="showPassword" id="showPasswordLabel" style="transform: none !important; float: left;">
                                                 Show password
                                             </label>
                                         </div>
                                         <div class="col-md-12 col-sm-6 col-sm-offset-3 mt-5">
-                                            <button type="submit" name="login-submit" id="login-submit" tabindex="3" class="btn btn-default btn-login" value="LOGIN"> Login</button>
+                                            <button type="submit" name="login-submit" id="login-submit" tabindex="3" class="btn btn-default btn-login" value="LOGIN"> Log in</button>
                                         </div>
                                         <div class="col-sm-12 col-md-12 pt-4 pb-4 mb-5">
                                             <a href="javascript:void(0)" class="registerAccount link" style="color: #BABABA; ">Temporary Registration Link</a>
@@ -226,7 +233,7 @@ include 'model/authenticate.php';
                 <div class="modal-body">
                     <div class="container">
                         <form action="views/action.php" method="post" class="row g-3 needs-validation">
-                            <div class="">
+                            <div class="col-md-12 col-sm-12">
                                 <label for="" class="form-label">PCN ID Number</label>
                                 <input type="number" class="form-control" name="idnumber" id="idnumber" required>
                             </div>
@@ -242,15 +249,15 @@ include 'model/authenticate.php';
                                 <label for="" class="form-label">Last Name</label>
                                 <input type="text" class="form-control" name="lastName" id="lastName" required>
                             </div>
-                            <div class="">
+                            <div class="col-md-12 col-sm-12">
                                 <label for="" class="form-label">Email Address</label>
                                 <input type="email" class="form-control" name="email" id="email" required>
                             </div>
-                            <div class="">
+                            <div class="col-md-12 col-sm-12">
                                 <label for="" class="form-label">Contact Number</label>
                                 <input type="number" class="form-control" name="contactNumber" id="contactNumber" required>
                             </div>
-                            <div class="">
+                            <div class="col-md-12 col-sm-12">
                                 <label for="" class="form-label">Division</label>
                                 <select name="division" class="form-select" id="division" required>
                                     <option value="" disabled selected></option>
@@ -264,7 +271,7 @@ include 'model/authenticate.php';
                                     <option value="STRAT">STRAT</option>
                                 </select>
                             </div>
-                            <div class="">
+                            <div class="col-md-12 col-sm-12">
                                 <label for="" class="form-label">Username</label>
                                 <input type="text" class="form-control" name="username" id="Username" autocomplete="off" required>
                             </div>
@@ -285,7 +292,7 @@ include 'model/authenticate.php';
                                     <li class="requirements num"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 number.</li>
                                 </ul>
                             </div>
-                            <div class="" style="margin-top: -1rem !important;">
+                            <div class="col-md-12 col-sm-12" style="margin-top: -1rem !important;">
                                 <label for="" class="form-label">Confirm Password</label>
                                 <input type="password" name="confirmpassword" id="ConfirmPassword" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" autocomplete="off" required>
                                 <span onclick="showConfirmPasswordRegistration()">
@@ -307,7 +314,7 @@ include 'model/authenticate.php';
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary button" name="register" id="register">Save changes</button>
+                        <button type="submit" class="btn btn-primary button" name="register" id="register">Submit</button>
                     </div>
                     </form>
                 </div>

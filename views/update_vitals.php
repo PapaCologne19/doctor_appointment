@@ -204,6 +204,17 @@ include '../model/authenticate.php';
                            
                                         </div>
                                         <hr>
+
+                                        <hr>
+                                        <div class="row mt-1">
+                                            <div class="col-md-2">
+                                                <label for="" class="form-label" style="padding-top:1em">BMI</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" name="bmi" id="bmi" class="form-control">
+                                            </div>            
+                                        </div>
+                                        <hr>
                                         
 
 
@@ -225,6 +236,7 @@ include '../model/authenticate.php';
             </div>
         </div>
     </div>
+    <?php include '../components/footer.php'; ?>
 </body>
 
 </html>

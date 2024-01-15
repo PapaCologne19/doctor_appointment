@@ -95,12 +95,6 @@ else{}
                                             </div>
                                         </div>
 
-
-
-
-                                       
-
-
                                         <center>
                                         <div class="col-md-12 mt-4 mb-5">
                                             <button type="submit" name="submit_profilevital" class="btn btn-info">Submit</button>

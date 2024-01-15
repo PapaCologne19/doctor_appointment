@@ -201,9 +201,6 @@ body {
   padding: 15px 0;
 }
 
-#calMonth, #calYear, #calBack, #calNext, select option{
-  font-family: 'Julius Sans One', sans-serif !important;
-}
 .calRowHead .calCell {
   font-size: 15px;
   font-family: 'Julis Sans One', sans-serif !important;

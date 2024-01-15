@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include '../model/connect.php';
 include '../model/authenticate.php';
@@ -6,15 +6,9 @@ include '../model/authenticate.php';
 <!DOCTYPE html>
 <html lang="en">
 
-
-
 <head>
     <?php include '../components/header.php'; ?>
-    <title></title>
-    
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+    <title>View Vital</title>
 </head>
 
 <body>
@@ -25,9 +19,8 @@ include '../model/authenticate.php';
         session_destroy();
         header("Location: ../index.php");
         exit(0);
-        
+    } else {
     }
-    else{}
 
     if (isset($_SESSION['successMessage'])) { ?>
         <script>
@@ -36,7 +29,7 @@ include '../model/authenticate.php';
                 title: "<?php echo $_SESSION['successMessage']; ?>",
             })
         </script>
-    <?php unset($_SESSION['successMessage']);
+        <?php unset($_SESSION['successMessage']);
     } ?>
 
     <?php
@@ -47,7 +40,7 @@ include '../model/authenticate.php';
                 title: "<?php echo $_SESSION['errorMessage']; ?>",
             })
         </script>
-    <?php unset($_SESSION['errorMessage']);
+        <?php unset($_SESSION['errorMessage']);
     }
     ?>
     <div class="layout-wrapper layout-content-navbar">
@@ -68,118 +61,77 @@ include '../model/authenticate.php';
                                     <h4 class="fs-4">
                                         MEDICAL PROFILE
                                     </h4>
-                                 
                                 </div>
                                 <hr>
-                                <div class="container px-5">
-                                    <?php 
-                                    
-                                        if(isset($_POST['submit_profilevital'])){
-                                            $database = new Database();
-                                            $connect = $database->connect();
-                                            $id = $_POST['transfer'];
 
-                                            $users = new User($connect);
-                                            $user = $users->select_profile6($id);
-                                            
+                                <div class="container table-responsive">
+                                    <?php
 
-                                            // $rowd =  $user->fetch(PDO::FETCH_ASSOC);
+                                    if (isset($_POST['submit_profilevital'])) {
+                                        $database = new Database();
+                                        $connect = $database->connect();
+                                        $id = $_POST['transfer'];
 
+                                        $users = new User($connect);
+                                        $user = $users->select_profile6($id);
 
+                                        $database = new Database();
+                                        $connect = $database->connect();
+                                        $id1 = $_POST['transfer'];
 
-                                            $database = new Database();
-                                            $connect = $database->connect();
-                                            $id1 = $_POST['transfer'];
+                                        $users1 = new User($connect);
+                                        $user1 = $users1->select_profile6($id1);
 
-                                            $users1 = new User($connect);
-                                            $user1 = $users1->select_profile6($id1);
-                                            
-
-                                            $rowd =  $user1->fetch(PDO::FETCH_ASSOC);
-
-
-
-                                    ?>
-                                    <form action="action.php" class="form-group" method="POST">
-
-                                    
-                                        <h2 class="fs-6">NAME : <?php echo $rowd['patient_name']  ?></h2>
-                                    
-
-
-
-
-
-                                        <table id="example" class="display" style="width:100%">
-            <thead>
-            <tr>
-            <th> Date </th>
-            <th> Time </th>
-            <th> Blood Presure </thh>
-            <th> Pulse Rate </th>
-            <th> Respiratory Rate </th>
-            <th> Temp </th>
-            <th> Sugar </th>
-            <th> Height </th>
-            <th> Weight </th>
-
-
-             </tr>   
-            </thead>
-            <tbody> 
-
-<?php
-       while($row = $user->fetch(PDO::FETCH_ASSOC)){
-
-
-                        echo ' <tr> ';
-                        echo '  <td>  '.$row['info_date'].'   </td> ';
-                        echo '  <td>  '.$row['info_time'].'   </td> ';
-                        echo '  <td>  '.$row['bp1'].'   </td> ';
-                        echo '  <td>  '.$row['pr1'].'   </td> ';
-                        echo '  <td>  '.$row['rr1'].'   </td> ';
-                        echo '  <td>  '.$row['temp1'].'   </td> ';
-                        echo '  <td>  '.$row['sugar'].'   </td> ';
-                        echo '  <td>  '.$row['heightd'].'   </td> ';
-                        echo '  <td>  '.$row['weightd'].'   </td> ';
-
-
-                        echo ' </tr> ';
-       }?>
-
-
-
-     </tbody>
-        </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                        <center>
-                                        <div class="col-md-12 mt-4 mb-5">
-                                            
-                                    <button type="button" class="btn btn-danger" style="float:right;margin-left:5px" onclick="location.href = 'calendar_doctor.php'">Exit</button>
-                                    <!-- <button type="submit" name="submit_profile_edit" style="float:right" class="btn btn-info">Update Me</button> -->
-                                                  
-                                    
-                                    <!-- <button type="button" class="btn btn-secondary" onclick="location.href = 'calendar_doctor.php'">Cancel</button> -->
+                                        $rowd = $user1->fetch(PDO::FETCH_ASSOC);
+                                        ?>
+                                        <div class="mb-4">
+                                            <button type="button" class="btn btn-dark" onclick="location.href = 'print_vitals.php?patient_name=<?php echo $rowd['patient_name'];?>'">Print</button>
                                         </div>
-                                        </center>
-
-                                        
-                                    </form>
-                                    <?php }?>
+                                        <form action="action.php" class="form-group" method="POST">
+                                            <h2 class="fs-6">NAME :
+                                                <?php echo $rowd['patient_name'] ?>
+                                            </h2>
+                                            <table class="table" id="example">
+                                                <thead>
+                                                    <tr>
+                                                        <th> Date </th>
+                                                        <th> Time </th>
+                                                        <th> Blood Presure </thh>
+                                                        <th> Pulse Rate </th>
+                                                        <th> Respiratory Rate </th>
+                                                        <th> Temp </th>
+                                                        <th> Sugar </th>
+                                                        <th> Height </th>
+                                                        <th> Weight </th>
+                                                        <th> BMI </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    while ($row = $user->fetch(PDO::FETCH_ASSOC)) {
+                                                        echo ' <tr> ';
+                                                        echo '  <td>  ' . $row['info_date'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['info_time'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['bp1'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['pr1'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['rr1'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['temp1'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['sugar'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['heightd'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['weightd'] . '   </td> ';
+                                                        echo '  <td>  ' . $row['bmi'] . '   </td> ';
+                                                        echo ' </tr> ';
+                                                    } ?>
+                                                </tbody>
+                                            </table>
+                                            <center>
+                                                <div class="col-md-12 mt-4 mb-5">
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="location.href = 'calendar_doctor.php'">Exit</button>
+                                                </div>
+                                            </center>
+                                        </form>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -188,14 +140,7 @@ include '../model/authenticate.php';
             </div>
         </div>
     </div>
+    <?php include '../components/footer.php'; ?>
 </body>
 
 </html>
-
-<script type="text/javascript">
-
-
-    $(document).ready(function() {
-    $('#example').DataTable();
-} );
-    </script>

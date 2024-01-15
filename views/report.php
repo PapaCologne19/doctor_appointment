@@ -151,7 +151,7 @@ while ($row = $user->fetch(PDO::FETCH_ASSOC)) {
 
                     <li class="nav-item">
                       <button class="nav-link" data-bs-toggle="tab"
-                        data-bs-target="#employee-profile-summary-count">Count</button>
+                        data-bs-target="#employee-profile-summary-count">Details</button>
                     </li>
 
                   </ul>
@@ -183,34 +183,34 @@ while ($row = $user->fetch(PDO::FETCH_ASSOC)) {
                           <tbody>
                             <tr>
                               <td class="text-center">BD1</td>
-                              <td style="text-align:center">32</td>
+                              <td style="text-align:center">31</td>
                               <td style="text-align:center">
                                 <?php echo $bd1; ?>
                               </td>
                               <td style="text-align:center">
-                                <?php echo round((float) $bd1 / 32 * 100) . '%'; ?>
+                                <?php echo round((float) $bd1 / 31 * 100) . '%'; ?>
                               </td>
 
 
                             </tr>
                             <tr>
                               <td class="text-center">BD2</td>
-                              <td style="text-align:center">22</td>
+                              <td style="text-align:center">19</td>
                               <td style="text-align:center">
                                 <?php echo $bd2; ?>
                               </td>
                               <td style="text-align:center">
-                                <?php echo round((float) $bd2 / 22 * 100) . '%'; ?>
+                                <?php echo round((float) $bd2 / 19 * 100) . '%'; ?>
                               </td>
                             </tr>
                             <tr>
                               <td class="text-center">BD3</td>
-                              <td style="text-align:center">15</td>
+                              <td style="text-align:center">11</td>
                               <td style="text-align:center">
                                 <?php echo $bd3; ?>
                               </td>
                               <td style="text-align:center">
-                                <?php echo round((float) $bd3 / 15 * 100) . '%'; ?>
+                                <?php echo round((float) $bd3 / 11 * 100) . '%'; ?>
                               </td>
                             </tr>
 
@@ -227,34 +227,34 @@ while ($row = $user->fetch(PDO::FETCH_ASSOC)) {
 
                             <tr>
                               <td class="text-center">FINANCE</td>
-                              <td style="text-align:center">27</td>
+                              <td style="text-align:center">26</td>
                               <td style="text-align:center">
                                 <?php echo $finance; ?>
                               </td>
                               <td style="text-align:center">
-                                <?php echo round((float) $finance / 27 * 100) . '%'; ?>
+                                <?php echo round((float) $finance / 26 * 100) . '%'; ?>
                               </td>
                             </tr>
 
                             <tr>
                               <td class="text-center">HRD</td>
-                              <td style="text-align:center">20</td>
+                              <td style="text-align:center">19</td>
                               <td style="text-align:center">
                                 <?php echo $hrd; ?>
                               </td>
                               <td style="text-align:center">
-                                <?php echo round((float) $hrd / 20 * 100) . '%'; ?>
+                                <?php echo round((float) $hrd / 19 * 100) . '%'; ?>
                               </td>
                             </tr>
 
                             <tr>
                               <td class="text-center">STRAT</td>
-                              <td style="text-align:center">8</td>
+                              <td style="text-align:center">9</td>
                               <td style="text-align:center">
                                 <?php echo $strat; ?>
                               </td>
                               <td style="text-align:center">
-                                <?php echo round((float) $strat / 8 * 100) . '%'; ?>
+                                <?php echo round((float) $strat / 9 * 100) . '%'; ?>
                               </td>
                             </tr>
 
@@ -272,7 +272,7 @@ while ($row = $user->fetch(PDO::FETCH_ASSOC)) {
                             </tr>
 
                             <tr>
-                              <td class="text-center">Execom</td>
+                              <td class="text-center">EXECOM</td>
                               <td style="text-align:center">2</td>
                               <td style="text-align:center">
                                 <?php echo $execom; ?>
